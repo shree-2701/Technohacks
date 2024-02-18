@@ -1,51 +1,39 @@
-import tkinter as tk
-def on_click(button_value):
-    current = entry.get()
+def add(x, y):
+    return x + y
 
-    if button_value == '=':
-        try:
-            result = eval(current)
-            entry.delete(0, tk.END)
-            entry.insert(tk.END, str(result))
-        except Exception as e:
-            entry.delete(0, tk.END)
-            entry.insert(tk.END, "Error")
-    elif button_value == 'C':
-        entry.delete(0, tk.END)
+def subtract(x, y):
+    return x - y
+
+def multiply(x, y):
+    return x * y
+
+def divide(x, y):
+    if y == 0:
+        return "Error! Division by zero is not allowed."
     else:
-        entry.insert(tk.END, str(button_value))
+        return x / y
 
+print("Select operation:")
+print("1. Add")
+print("2. Subtract")
+print("3. Multiply")
+print("4. Divide")
 
-# Create the main window
-window = tk.Tk()
-window.title("Techno Calculator")
-window.configure(bg="Green")
+while True:
+    choice = input("Enter choice (1/2/3/4): ")
 
-# Entry widget for input and display
-entry = tk.Entry(window, width=20, font=("Bazooka", 20), borderwidth=5, justify="right")
-entry.grid(row=0, column=0, columnspan=4, padx=10, pady=10, sticky="nsew")
+    if choice in ('1', '2', '3', '4'):
+        num1 = float(input("Enter first number: "))
+        num2 = float(input("Enter second number: "))
 
-buttons = [
-    ('7', 1, 0), ('8', 1, 1), ('9', 1, 2), ('/', 1, 3),
-    ('4', 2, 0), ('5', 2, 1), ('6', 2, 2), ('*', 2, 3),
-    ('1', 3, 0), ('2', 3, 1), ('3', 3, 2), ('-', 3, 3),
-    ('0', 4, 0), ('C', 4, 1), ('=', 4, 2), ('+', 4, 3),
-]
-
-# Add buttons with enhanced styling
-for (text, row, col) in buttons:
-    button_bg = 'lightblue' if text.isdigit() else 'lightgreen' if text in ['C', '='] else 'lightcoral'
-    button_fg = 'black'
-    button = tk.Button(window, text=text, padx=25, pady=25, font=("Bazooka", 16),
-                       command=lambda t=text: on_click(t), bg=button_bg, fg=button_fg)
-    button.grid(row=row, column=col, sticky="nsew")
-
-
-# Configure row and column weights for responsive resizing
-for i in range(5):
-    window.grid_rowconfigure(i, weight=1)
-    window.grid_columnconfigure(i, weight=1)
-
-for child in window.winfo_children():
-    child.grid_configure(padx=15, pady=15)
-window.mainloop()
+        if choice == '1':
+            print(num1, "+", num2, "=", add(num1, num2))
+        elif choice == '2':
+            print(num1, "-", num2, "=", subtract(num1, num2))
+        elif choice == '3':
+            print(num1, "*", num2, "=", multiply(num1, num2))
+        elif choice == '4':
+            print(num1, "/", num2, "=", divide(num1, num2))
+        break
+    else:
+        print("Invalid Input")
